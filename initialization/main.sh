@@ -4,6 +4,7 @@ SCRIPT_ABS_PATH="$(readlink -e $0)";
 SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
 LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
 GLOBAL_VARIABLES_FILE="${SCRIPT_DIR}/global-variables.sh";
+ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
 
 . $GLOBAL_VARIABLES_FILE || exit 1;
 
@@ -49,3 +50,6 @@ git clone "$REPO_I3WM" --branch='i3status' "${HOME}/.config/i3status";
 git clone "$REPO_I3WM" --branch='rofi'     "${HOME}/.config/rofi";
 
 git clone "$REPO_SYSTEM76_FIRMWARE_CLI" "${PROJECTS_SYSTEM76_DIR}/firmware-cli";
+
+echo "Installing aliases";
+cp --verbose "$ALIASES_FILE" "$BASH_ALIAS_FILE";
