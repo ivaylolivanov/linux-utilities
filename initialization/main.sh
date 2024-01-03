@@ -4,6 +4,7 @@ SCRIPT_ABS_PATH="$(readlink -e $0)";
 SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
 LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
 GLOBAL_VARIABLES_FILE="${SCRIPT_DIR}/global-variables.sh";
+HELPERS_DIR="$(readlink -e "${SCRIPT_DIR}/../helpers")";
 ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
 
 . $GLOBAL_VARIABLES_FILE || exit 1;
@@ -53,3 +54,6 @@ git clone "$REPO_SYSTEM76_FIRMWARE_CLI" "${PROJECTS_SYSTEM76_DIR}/firmware-cli";
 
 echo "Installing aliases";
 cp --verbose "$ALIASES_FILE" "$BASH_ALIAS_FILE";
+
+echo "Setting up persistent sourcing ${HELPERS_DIR}/alias-update.sh";
+printf -- "\n. '%s';\n" "${HELPERS_DIR}/alias-update.sh" >> "$BASH_RC_FILE";
