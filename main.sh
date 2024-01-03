@@ -11,6 +11,12 @@ OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
 OS_SPECIFICS_SCRIPT="${LINUX_FLAVOURS_DIR}/${OS}.sh";
 
+function install-packages()
+{
+    # In case, no OS specifics were defined, use this stub function.
+    return 0;
+}
+
 echo "Setting the timezone to ${TIMEZONE}";
 sudo timedatectl set-timezone "$TIMEZONE";
 
