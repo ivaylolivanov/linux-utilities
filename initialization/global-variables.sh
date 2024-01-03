@@ -8,3 +8,6 @@ TIMEZONE='Europe/Sofia';
 REPO_EMACS='git@github.com:ivaylolivanov/emacs.git';
 REPO_I3WM='git@github.com:ivaylolivanov/i3WM_Setup.git';
 REPO_SYSTEM76_FIRMWARE_CLI='https://github.com/pop-os/system76-firmware.git';
+
+BASH_RC_FILE="${HOME}/.bashrc";
+BASH_ALIAS_FILE="${HOME}/.bash_aliases";
