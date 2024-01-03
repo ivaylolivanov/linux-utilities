@@ -34,6 +34,23 @@ if [ "$OS" == 'debian' ]; then
         htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev curl     \
         qbittorrent pavucontrol thunderbird;
 
+    BRAVE_KEYRING_FILENAME='brave-browser-archive-keyring.gpg';
+    BRAVE_KEYRING_SAFE_LOCATION="/usr/share/keyrings/${BRAVE_KEYRING_FILENAME}";
+    BRAVE_RELEASE_URL='https://brave-browser-apt-release.s3.brave.com/';
+    BRAVE_KEYRING_URL="${BRAVE_RELEASE_URL}/${BRAVE_KEYRING_FILENAME}";
+    BRAVE_APT_REPO_FILE='/etc/apt/sources.list.d/brave-browser-release.list';
+
+    # Leave the comment until tested if is the same as:
+    # echo "deb [signed-by=${BRAVE_KEYRING_SAFE_LOCATION}] ${BRAVE_RELEASE_URL} stable main"|sudo tee
+    printf -v BRAVE_REPOSITORY_CONTENT -- "deb [signed-by=%s] %s stable main" \
+        "$BRAVE_KEYRING_SAFE_LOCATION" \
+        "$BRAVE_RELEASE_URL";
+
+    sudo curl -fsSLo "$BRAVE_KEYRING_SAFE_LOCATION" "$BRAVE_KEYRING_URL";
+    echo "$BRAVE_REPOSITORY_CONTENT" | sudo tee "$BRAVE_APT_REPO_FILE";
+    sudo apt update;
+    sudo apt install -y brave-browser;
+
 fi
 
 mkdir -pv "$PROJECTS_DIR";
