@@ -14,7 +14,7 @@ echo "Setting the timezone to ${TIMEZONE}";
 sudo timedatectl set-timezone "$TIMEZONE";
 
 OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
-OS_VERSION="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
+OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
 
 if [ "$OS" == 'debian' ]; then
 
