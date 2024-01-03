@@ -1,8 +1,11 @@
 #!/usr/bin/bash
 
+SCRIPT_ABS_PATH="$(readlink -e $0)";
+SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
+LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
+
 PROJECTS_DIR="${HOME}/Projects";
 PROJECTS_SYSTEM76_DIR="${PROJECTS_DIR}/system76";
-APT_SOURCES_LIST="/etc/apt/sources.list";
 OS_RELEASE_DATA="/etc/os-release";
 TIMEZONE='Europe/Sofia';
 
@@ -15,43 +18,17 @@ sudo timedatectl set-timezone "$TIMEZONE";
 
 OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
+OS_SPECIFICS_SCRIPT="${LINUX_FLAVOURS_DIR}/${OS}.sh";
 
-if [ "$OS" == 'debian' ]; then
-
-    sudo echo 'deb http://deb.debian.org/debian/ bookworm main non-free-firmware non-free contrib'                           >  "$APT_SOURCES_LIST";
-    sudo echo 'deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware non-free contrib'                       >> "$APT_SOURCES_LIST";
-    sudo echo 'deb http://security.debian.org/debian-security bookworm-security main non-free-firmware non-free contrib'     >> "$APT_SOURCES_LIST";
-    sudo echo 'deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware non-free contrib' >> "$APT_SOURCES_LIST";
-    sudo echo 'deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware'                                    >> "$APT_SOURCES_LIST";
-    sudo echo 'deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware'                                >> "$APT_SOURCES_LIST";
-
-    sudo apt update;
-    sudo apt upgrade;
-    sudo apt install -y git emacs i3 i3lock rofi polybar nvidia-driver tree mpv \
-        firmware-misc-nonfree fonts-inconsolata fonts-roboto llvm clang clangd  \
-        fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo feh \
-        gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock physlock \
-        htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev curl     \
-        qbittorrent pavucontrol thunderbird;
-
-    BRAVE_KEYRING_FILENAME='brave-browser-archive-keyring.gpg';
-    BRAVE_KEYRING_SAFE_LOCATION="/usr/share/keyrings/${BRAVE_KEYRING_FILENAME}";
-    BRAVE_RELEASE_URL='https://brave-browser-apt-release.s3.brave.com/';
-    BRAVE_KEYRING_URL="${BRAVE_RELEASE_URL}/${BRAVE_KEYRING_FILENAME}";
-    BRAVE_APT_REPO_FILE='/etc/apt/sources.list.d/brave-browser-release.list';
-
-    # Leave the comment until tested if is the same as:
-    # echo "deb [signed-by=${BRAVE_KEYRING_SAFE_LOCATION}] ${BRAVE_RELEASE_URL} stable main"|sudo tee
-    printf -v BRAVE_REPOSITORY_CONTENT -- "deb [signed-by=%s] %s stable main" \
-        "$BRAVE_KEYRING_SAFE_LOCATION" \
-        "$BRAVE_RELEASE_URL";
-
-    sudo curl -fsSLo "$BRAVE_KEYRING_SAFE_LOCATION" "$BRAVE_KEYRING_URL";
-    echo "$BRAVE_REPOSITORY_CONTENT" | sudo tee "$BRAVE_APT_REPO_FILE";
-    sudo apt update;
-    sudo apt install -y brave-browser;
-
+if [ -f "$OS_SPECIFICS_SCRIPT" ] && [ -s "$OS_SPECIFICS_SCRIPT" ]; then
+    . "$OS_SPECIFICS_SCRIPT";
 fi
+
+install-packages ||
+{
+    printf -- "\nFailed to install packages!\n\n";
+    exit $?;
+}
 
 mkdir -pv "$PROJECTS_DIR";
 mkdir -pv "$PROJECTS_SYSTEM76_DIR";
