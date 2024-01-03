@@ -3,22 +3,16 @@
 SCRIPT_ABS_PATH="$(readlink -e $0)";
 SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
 LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
+GLOBAL_VARIABLES_FILE="${SCRIPT_DIR}/global-variables.sh";
 
-PROJECTS_DIR="${HOME}/Projects";
-PROJECTS_SYSTEM76_DIR="${PROJECTS_DIR}/system76";
-OS_RELEASE_DATA="/etc/os-release";
-TIMEZONE='Europe/Sofia';
-
-REPO_EMACS='git@github.com:ivaylolivanov/emacs.git';
-REPO_I3WM='git@github.com:ivaylolivanov/i3WM_Setup.git';
-REPO_SYSTEM76_FIRMWARE_CLI='https://github.com/pop-os/system76-firmware.git';
-
-echo "Setting the timezone to ${TIMEZONE}";
-sudo timedatectl set-timezone "$TIMEZONE";
+. $GLOBAL_VARIABLES_FILE || exit 1;
 
 OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
 OS_SPECIFICS_SCRIPT="${LINUX_FLAVOURS_DIR}/${OS}.sh";
+
+echo "Setting the timezone to ${TIMEZONE}";
+sudo timedatectl set-timezone "$TIMEZONE";
 
 if [ -f "$OS_SPECIFICS_SCRIPT" ] && [ -s "$OS_SPECIFICS_SCRIPT" ]; then
     . "$OS_SPECIFICS_SCRIPT";
