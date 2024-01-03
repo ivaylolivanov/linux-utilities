@@ -29,9 +29,10 @@ if [ "$OS" == 'debian' ]; then
     sudo apt upgrade;
     sudo apt install -y git emacs i3 i3lock rofi polybar nvidia-driver tree mpv \
         firmware-misc-nonfree fonts-inconsolata fonts-roboto llvm clang clangd  \
-        fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo     \
+        fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo feh \
         gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock physlock \
-        htop libssl-dev libdbus-1-dev;
+        htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev curl     \
+        qbittorrent pavucontrol thunderbird;
 
 fi
 
