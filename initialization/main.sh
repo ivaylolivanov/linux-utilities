@@ -4,20 +4,16 @@ SCRIPT_ABS_PATH="$(readlink -e $0)";
 SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
 LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
 COMMON_VARIABLES_FILE="${SCRIPT_DIR}/common-variables.sh";
+COMMON_FUNCTIONS_FILE="${SCRIPT_DIR}/common-functions.sh";
 HELPERS_DIR="$(readlink -e "${SCRIPT_DIR}/../helpers")";
 ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
 
 . "$COMMON_VARIABLES_FILE" || exit 1;
+. "$COMMON_FUNCTIONS_FILE" || exit 2;
 
 OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
 OS_SPECIFICS_SCRIPT="${LINUX_FLAVOURS_DIR}/${OS}.sh";
-
-function install-packages()
-{
-    # In case, no OS specifics were defined, use this stub function.
-    return 0;
-}
 
 echo "Setting the timezone to ${TIMEZONE}";
 sudo timedatectl set-timezone "$TIMEZONE";
