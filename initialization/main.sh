@@ -3,11 +3,11 @@
 SCRIPT_ABS_PATH="$(readlink -e $0)";
 SCRIPT_DIR="$(readlink -e $(dirname $SCRIPT_ABS_PATH))";
 LINUX_FLAVOURS_DIR="${SCRIPT_DIR}/flavours";
-GLOBAL_VARIABLES_FILE="${SCRIPT_DIR}/global-variables.sh";
+COMMON_VARIABLES_FILE="${SCRIPT_DIR}/common-variables.sh";
 HELPERS_DIR="$(readlink -e "${SCRIPT_DIR}/../helpers")";
 ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
 
-. $GLOBAL_VARIABLES_FILE || exit 1;
+. "$COMMON_VARIABLES_FILE" || exit 1;
 
 OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
