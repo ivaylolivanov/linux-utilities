@@ -11,14 +11,14 @@ ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
 . "$COMMON_VARIABLES_FILE" || exit 1;
 . "$COMMON_FUNCTIONS_FILE" || exit 2;
 
-OS="$(cat "$OS_RELEASE_DATA" | grep '^ID' | cut -d '=' -f2)";
+OS="$(detect-os)";
 OS_CODENAME="$(cat "$OS_RELEASE_DATA" | grep '^VERSION_CODENAME' | cut -d '=' -f2)";
 OS_SPECIFICS_SCRIPT="${LINUX_FLAVOURS_DIR}/${OS}.sh";
 
 echo "Setting the timezone to ${TIMEZONE}";
 sudo timedatectl set-timezone "$TIMEZONE";
 
-if [ -f "$OS_SPECIFICS_SCRIPT" ] && [ -s "$OS_SPECIFICS_SCRIPT" ]; then
+if file-exists "$OS_SPECIFICS_SCRIPT" && [ -s "$OS_SPECIFICS_SCRIPT" ]; then
     . "$OS_SPECIFICS_SCRIPT";
 fi
 
