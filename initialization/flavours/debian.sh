@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-APT_SOURCES_LIST="/etc/apt/sources.list";
-
 function initialize-aptitude()
 {
     local codename="$OS_CODENAME";
