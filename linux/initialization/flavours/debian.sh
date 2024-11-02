@@ -66,7 +66,8 @@ function install-packages()
         fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo feh \
         gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock physlock \
         htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev rustc    \
-        qbittorrent pavucontrol thunderbird imagemagick curl || return 2;
+        qbittorrent pavucontrol thunderbird software-properties-common curl     \
+        imagemagick shellcheck || return 2;
 
     install-non-native-packages || return 3;
 
