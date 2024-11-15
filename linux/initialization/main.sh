@@ -7,6 +7,7 @@ COMMON_VARIABLES_FILE="${SCRIPT_DIR}/common-variables.sh";
 COMMON_FUNCTIONS_FILE="${SCRIPT_DIR}/common-functions.sh";
 HELPERS_DIR="$(readlink -e "${SCRIPT_DIR}/../helpers")";
 ALIASES_FILE="${SCRIPT_DIR}/aliases.sh";
+CLANG_FORMAT_FILE="${SCRIPT_DIR}/clang-format";
 
 . "$COMMON_VARIABLES_FILE" || exit 1;
 . "$COMMON_FUNCTIONS_FILE" || exit 2;
@@ -50,6 +51,9 @@ git clone "$REPO_SYSTEM76_FIRMWARE_CLI" "${PROJECTS_SYSTEM76_DIR}/firmware-cli";
 
 echo "Installing aliases";
 cp --verbose "$ALIASES_FILE" "$BASH_ALIAS_FILE";
+
+echo "Installing global clang formatting config";
+cp --verbose "$CLANG_FORMAT_FILE" "$CLANG_FORMAT_GLOBAL_CONFIG";
 
 echo "Setting up persistent sourcing ${HELPERS_DIR}/alias-update.sh";
 printf -- "\n. '%s';\n" "${HELPERS_DIR}/alias-update.sh" >> "$BASH_RC_FILE";

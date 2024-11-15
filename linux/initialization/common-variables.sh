@@ -14,3 +14,5 @@ REPO_SYSTEM76_FIRMWARE_CLI='https://github.com/pop-os/system76-firmware.git';
 
 BASH_RC_FILE="${HOME}/.bashrc";
 BASH_ALIAS_FILE="${HOME}/.bash_aliases";
+
+CLANG_FORMAT_GLOBAL_CONFIG="${HOME}/.clang-format";
