@@ -46,6 +46,7 @@ git clone "$REPO_EMACS" "${HOME}/.emacs.d";
 git clone "$REPO_I3WM" --branch='i3wm'     "${HOME}/.config/i3";
 git clone "$REPO_I3WM" --branch='i3status' "${HOME}/.config/i3status";
 git clone "$REPO_I3WM" --branch='rofi'     "${HOME}/.config/rofi";
+git clone "$REPO_I3WM" --branch='picom'    "${HOME}/.config/picom";
 
 git clone "$REPO_SYSTEM76_FIRMWARE_CLI" "${PROJECTS_SYSTEM76_DIR}/firmware-cli";
 
