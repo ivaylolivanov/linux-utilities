@@ -66,8 +66,9 @@ function install-packages()
         fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo feh \
         gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock physlock \
         htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev rustc jq \
-        qbittorrent pavucontrol thunderbird software-properties-common rsync    \
-        imagemagick shellcheck curl ssh dvipng texlive conky || return 2;
+        qbittorrent pavucontrol thunderbird software-properties-common texlive  \
+        imagemagick shellcheck curl ssh dvipng conky-all gcalcli rsync          \
+        || return 2;
 
     install-non-native-packages || return 3;
 
