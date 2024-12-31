@@ -68,7 +68,7 @@ function install-packages()
         htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev rustc jq \
         qbittorrent pavucontrol thunderbird software-properties-common texlive  \
         imagemagick shellcheck curl ssh dvipng conky-all rsync xorg-dev gdb     \
-        || return 2;
+        python3-pip || return 2;
 
     install-non-native-packages || return 3;
 
