@@ -61,14 +61,15 @@ function install-packages()
 
     sudo apt update  || return 2;
     sudo apt upgrade || return 2;
-    sudo apt install -y git emacs i3 i3lock rofi polybar nvidia-driver tree mpv \
-        firmware-misc-nonfree fonts-inconsolata fonts-roboto llvm clang clangd  \
-        fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config cargo feh \
-        gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock physlock \
-        htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev rustc jq \
-        qbittorrent pavucontrol thunderbird software-properties-common texlive  \
-        imagemagick shellcheck curl ssh dvipng conky-all rsync xorg-dev blueman \
-        python3-pip gdb || return 2;
+    sudo apt install -y git emacs i3 i3lock rofi gdb nvidia-driver tree mpv    \
+        firmware-misc-nonfree fonts-inconsolata fonts-roboto llvm clang clangd \
+        fonts-font-awesome mtp-tools libudisks2-dev jmtpfs pkg-config feh jq   \
+        gvfs-backends libudisks2-dev gvfs-backends ristretto xautolock cargo   \
+        htop libssl-dev libdbus-1-dev picom vulkan-tools libvulkan-dev rustc   \
+        qbittorrent pavucontrol thunderbird software-properties-common polybar \
+        imagemagick shellcheck curl dvipng conky-all rsync xorg-dev blueman    \
+        texlive texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra   \
+        python3-pip ssh physlock || return 2;
 
     install-non-native-packages || return 3;
 
