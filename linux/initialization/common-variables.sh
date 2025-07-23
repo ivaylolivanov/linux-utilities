@@ -8,8 +8,8 @@ TIMEZONE='Europe/Sofia';
 APT_SOURCES_LIST="/etc/apt/sources.list";
 APT_SOURCES_LIST_DIR="${APT_SOURCES_LIST}.d";
 
-REPO_EMACS='git@github.com:ivaylolivanov/emacs.git';
-REPO_I3WM='git@github.com:ivaylolivanov/i3WM_Setup.git';
+REPO_EMACS='https://github.com/ivaylolivanov/emacs.git';
+REPO_I3WM='https://github.com/ivaylolivanov/i3WM_Setup.git';
 REPO_SYSTEM76_FIRMWARE_CLI='https://github.com/pop-os/system76-firmware.git';
 
 BASH_RC_FILE="${HOME}/.bashrc";
