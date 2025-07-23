@@ -91,7 +91,7 @@ function install-packages()
         qbittorrent pavucontrol thunderbird software-properties-common polybar \
         imagemagick shellcheck curl dvipng conky-all rsync xorg-dev blueman    \
         texlive texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra   \
-        python3-pip ssh physlock neofetch || return 2;
+        python3-pip ssh physlock neofetch liblzma-dev || return 2;
 
     install-non-native-packages || return 3;
 
