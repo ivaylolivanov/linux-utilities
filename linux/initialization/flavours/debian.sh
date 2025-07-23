@@ -48,9 +48,31 @@ function install-brave-browser()
     return 0;
 }
 
+function install-rustup()
+{
+    local rustup_url='https://sh.rustup.rs';
+    local protocol='=https';
+    local rustup='';
+
+    rustup="$(curl          \
+        --proto "$protocol" \
+        --tlsv1.2           \
+        --silent            \
+        --show-error        \
+        --fail              \
+        "${rustup_url}"     || exit 1)" || return $?;
+
+    if [ -n "$rustup" ]; then
+        eval "$rustup" || return 2;
+    fi
+
+    return 0;
+}
+
 function install-non-native-packages()
 {
     install-brave-browser || return 1;
+    install-rustup        || return 2;
 
     return 0;
 }
@@ -69,7 +91,7 @@ function install-packages()
         qbittorrent pavucontrol thunderbird software-properties-common polybar \
         imagemagick shellcheck curl dvipng conky-all rsync xorg-dev blueman    \
         texlive texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra   \
-        python3-pip ssh physlock || return 2;
+        python3-pip ssh physlock neofetch || return 2;
 
     install-non-native-packages || return 3;
 
