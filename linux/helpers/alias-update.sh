@@ -1,5 +1,11 @@
 #!/usr/bin/bash
 
+export BASH_SCRIPT_FILEPATH="$(readlink -e "${BASH_SOURCE[0]}")";
+export BASH_SCRIPT_DIRPATH="$(dirname "${BASH_SCRIPT_FILEPATH}")";
+export UTILITIES_COMMON_FUNCTIONS="${UTILITIES_COMMON_FUNCTIONS:-${BASH_SCRIPT_DIRPATH}/../common-functions.sh}";
+. "$UTILITIES_COMMON_FUNCTIONS";
+
+
 function is-persist-value-valid()
 {
     local -l value="$1"; shift 1;
@@ -86,16 +92,6 @@ function is-strict()
     local positive='--strict';
 
     [ "$value" == "$positive" ] && return 1;
-
-    return 0;
-}
-
-function is-in-git-repo()
-{
-    local directory="$1"; shift 1;
-
-    cd "$directory" || return 1;
-    git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 2;
 
     return 0;
 }
