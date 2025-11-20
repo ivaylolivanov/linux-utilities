@@ -25,14 +25,6 @@ function projects
     Set-Location -Path "C:\Users\ivayl\Projects";
 }
 
-Remove-Item Alias:ls;
-function linux-like-ls()
-{
-    Get-ChildItem | Format-Wide -Column 5 -Property Name;
-}
-Set-Alias -Name 'ls' -Value linux-like-ls;
-Set-Alias -Name 'll' -Value Get-ChildItem;
-
 function prompt
 {
     $directoryColor = "Yellow";
